@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Список инструкторов</title>
+</head>
+<body>
+<h1>Список инструкторов</h1>
+<form action="/instructors/add" method="post"> <!-- Изменено на instructors -->
+  <input type="text" name="name" placeholder="Имя" required>
+  <input type="text" name="lastName" placeholder="Фамилия" required>
+  <input type="text" name="firstName" placeholder="Отчество" required>
+  <button type="submit">Добавить инструктора</button> <!-- Изменено на инструктора -->
+</form>
+
+<h2>Все инструктора:</h2> <!-- Изменено на инструктора -->
+<ul>
+  <th:block th:each="instructor : ${instructors}"> <!-- Изменено на instructors -->
+    <li>
+      <span th:text="${instructor.name} + ' ' + ${instructor.lastName} + ' ' + ${instructor.firstName}"></span>
+      <form action="/instructors/update" method="post" style="display:inline;"> <!-- Изменено на instructors -->
+        <input type="hidden" name="id" th:value="${instructor.id}"/> <!-- Изменено на instructors -->
+        <input type="text" name="name" placeholder="Имя" required/>
+        <input type="text" name="lastName" placeholder="Фамилия" required/>
+        <input type="text" name="firstName" placeholder="Отчество" required/>
+        <button type="submit">Обновить</button>
+      </form>
+      <form action="/instructors/delete" method="post" style="display:inline;"> <!-- Изменено на instructors -->
+        <input type="hidden" name="id" th:value="${instructor.id}"/> <!-- Изменено на instructors -->
+        <button type="submit">Удалить</button>
+      </form>
+    </li>
+  </th:block>
+</ul>
+</body>
+</html>

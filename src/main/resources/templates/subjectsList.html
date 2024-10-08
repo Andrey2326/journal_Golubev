@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Список предметов</title>
+</head>
+<body>
+<h1>Список предметов</h1>
+
+<h2>Добавить предмет:</h2>
+<form action="/subjects/add" method="post"> <!-- Изменено на subjects/add -->
+  <input type="text" name="subjectsName" placeholder="Название предмета" required> <!-- Изменено на subjectsName -->
+  <button type="submit">Добавить предмет</button> <!-- Изменено на предмет -->
+</form>
+
+<h2>Все предметы:</h2>
+<ul>
+  <th:block th:each="subject : ${subjects}"> <!-- Изменено на subject и subjects -->
+    <li>
+      <span th:text="${subject.subjectsName}"></span> <!-- Изменено на subjectsName -->
+
+      <form action="/subjects/update" method="post" style="display:inline;"> <!-- Изменено на subjects/update -->
+        <input type="hidden" name="id" th:value="${subject.id}"/>
+        <input type="text" name="subjectsName" placeholder="Название предмета" required/> <!-- Изменено на subjectsName -->
+        <button type="submit">Обновить</button>
+      </form>
+
+      <form action="/subjects/delete" method="post" style="display:inline;"> <!-- Изменено на subjects/delete -->
+        <input type="hidden" name="id" th:value="${subject.id}"/>
+        <button type="submit">Удалить</button>
+      </form>
+    </li>
+  </th:block>
+</ul>
+
+<h2>Фильтрация предметов:</h2>
+<form action="/subjects/filter" method="get"> <!-- Изменено на subjects/filter -->
+  <input type="text" name="subjectsName" placeholder="Название предмета"> <!-- Изменено на subjectsName -->
+  <input type="checkbox" name="deleted"> Показать удаленные
+  <button type="submit">Фильтровать</button>
+</form>
+
+<h2>Множественное удаление:</h2>
+<form action="/subjects/deleteMultiple" method="post"> <!-- Изменено на subjects/deleteMultiple -->
+  <th:block th:each="subject : ${subjects}"> <!-- Изменено на subject и subjects -->
+    <input type="checkbox" name="ids" th:value="${subject.id}"> <!-- Изменено на subject -->
+    <span th:text="${subject.subjectsName}"></span> <!-- Изменено на subjectsName -->
+    <br>
+  </th:block>
+  <button type="submit">Удалить выбранные</button>
+</form>
+
+</body>
+</html>
